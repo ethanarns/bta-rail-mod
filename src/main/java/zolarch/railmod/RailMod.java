@@ -52,6 +52,6 @@ public class RailMod implements ModInitializer, GameStartEntrypoint, RecipeEntry
 			.addInput('I', Item.ingotIron)
 			.addInput('S', Item.stick)
 			.addInput('R', Item.dustRedstone)
-			.create("powered_rail_compact", new ItemStack(Block.railPowered,4));
+			.create("powered_rail_compact", new ItemStack(Block.railPowered,6));
 	}
 }

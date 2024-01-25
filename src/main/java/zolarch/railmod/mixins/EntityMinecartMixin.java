@@ -31,7 +31,7 @@ public abstract class EntityMinecartMixin extends Entity {
 
 	@Inject(method = "tick",at = @At("TAIL"))
 	private void chestMinecartPickupItem(CallbackInfo ci) {
-		// Ensure it's a chest minecart
+		// Ensure it's a chest minecart (and handle server side)
 		if (this.minecartType == 1 && !this.world.isClientSide) {
 			List<Entity> nearby = this.world.getEntitiesWithinAABBExcludingEntity(this,this.bb.expand(0.8,0.5,0.8));
 			if (nearby != null && !nearby.isEmpty()) {
