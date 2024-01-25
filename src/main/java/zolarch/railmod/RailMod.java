@@ -31,11 +31,27 @@ public class RailMod implements ModInitializer, GameStartEntrypoint, RecipeEntry
 
 	@Override
 	public void onRecipesReady() {
+		// Increase the output of normal rails
 		RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rail");
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("I I","ISI","I I")
 			.addInput('I', Item.ingotIron)
 			.addInput('S', Item.stick)
 			.create("rail", new ItemStack(Block.rail,32));
+		// Increase the output of normal powered rail recipe
+		RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("powered_rail");
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("I I","ISI","IRI")
+			.addInput('I', Item.ingotGold)
+			.addInput('S', Item.stick)
+			.addInput('R', Item.dustRedstone)
+			.create("powered_rail", new ItemStack(Block.railPowered,16));
+		// Make a more efficient recipe for powered rails
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("IRI","ISI","IRI")
+			.addInput('I', Item.ingotIron)
+			.addInput('S', Item.stick)
+			.addInput('R', Item.dustRedstone)
+			.create("powered_rail_compact", new ItemStack(Block.railPowered,4));
 	}
 }
