@@ -1,8 +1,12 @@
 package zolarch.railmod;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
@@ -27,6 +31,11 @@ public class RailMod implements ModInitializer, GameStartEntrypoint, RecipeEntry
 
 	@Override
 	public void onRecipesReady() {
-
+		RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rail");
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("I I","ISI","I I")
+			.addInput('I', Item.ingotIron)
+			.addInput('S', Item.stick)
+			.create("rail", new ItemStack(Block.rail,32));
 	}
 }

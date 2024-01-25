@@ -1,11 +1,14 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "zolarch.railmod.mixin",
+    "package": "zolarch.railmod.mixins",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
+      "EntityMinecartMixin"
     ],
     "client": [
+    ],
+    "server": [
     ],
     "injectors": {
         "defaultRequire": 1
