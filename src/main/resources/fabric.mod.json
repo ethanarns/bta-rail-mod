@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "railmod",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This mod aims to help new BTA modders.",
+  "name": "Railty",
+  "description": "For rail enjoyers!",
   "authors": [
-    "Turnip Labs"
+    "Zolarch"
   ],
   "contact": {
     "homepage": "",
@@ -19,20 +19,20 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-			"turniplabs.examplemod.ExampleMod"
+			"zolarch.railmod.RailMod"
     ],
 		"beforeGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"zolarch.railmod.RailMod"
 		],
 		"afterGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"zolarch.railmod.RailMod"
 		],
 		"recipesReady": [
-			"turniplabs.examplemod.ExampleMod"
+			"zolarch.railmod.RailMod"
 		]
 	},
   "mixins": [
-      "examplemod.mixins.json"
+		"railmod.mixins.json"
   ],
 
   "depends": {
