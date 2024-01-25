@@ -3,12 +3,14 @@ package zolarch.railmod.mixins;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.vehicle.EntityMinecart;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import zolarch.railmod.RailMod;
 
 import java.util.List;
 
@@ -20,6 +22,9 @@ public abstract class EntityMinecartMixin extends Entity {
 	@Shadow
 	public int minecartType;
 
+	@Shadow
+	private ItemStack[] cargoItems;
+
 	public EntityMinecartMixin(World world) {
 		super(world);
 	}
@@ -28,11 +33,29 @@ public abstract class EntityMinecartMixin extends Entity {
 	private void chestMinecartPickupItem(CallbackInfo ci) {
 		// Ensure it's a chest minecart
 		if (this.minecartType == 1) {
-			List<Entity> nearby = this.world.getEntitiesWithinAABBExcludingEntity(this,this.bb.expand(1.0,1.0,1.0));
-			if (nearby != null) {
-                for (Entity near : nearby) {
-					if (!near.removed && near instanceof EntityItem) {
-						near.remove();
+			List<Entity> nearby = this.world.getEntitiesWithinAABBExcludingEntity(this,this.bb.expand(0.8,0.5,0.8));
+			if (nearby != null && !nearby.isEmpty()) {
+				RailMod.LOGGER.debug("Nearby ChestCart entity count: " + nearby.size());
+                for (int j = 0; j < nearby.size(); j++) {
+					if (!nearby.get(j).removed && nearby.get(j) instanceof EntityItem) {
+						EntityItem item = (EntityItem) nearby.get(j);
+                        for (int i = 0; i < this.cargoItems.length; i++) {
+							if (this.cargoItems[i] != null && this.cargoItems[i].canStackWith(item.item)) {
+								// Found a slot of the same item
+								if (this.cargoItems[i].stackSize < this.cargoItems[i].getMaxStackSize()) {
+									// It *can* be incremented, do so
+									this.cargoItems[i].stackSize++;
+									item.remove();
+									break;
+								}
+								// Otherwise, go to the next slot in line, this one is full
+							} else if (this.cargoItems[i] == null) {
+								// Found an empty slot
+								this.cargoItems[i] = item.item.copy();
+								item.remove();
+                                break;
+                            }
+                        }
 					}
                 }
 			}
