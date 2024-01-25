@@ -16,7 +16,7 @@ public class RailMod implements ModInitializer, GameStartEntrypoint, RecipeEntry
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     @Override
     public void onInitialize() {
-        LOGGER.info("RailMod (Temporary name) initialized.");
+        LOGGER.info("Railty initialized.");
     }
 
 	@Override
