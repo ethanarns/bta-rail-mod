@@ -4,7 +4,8 @@
     "package": "zolarch.railmod.mixins",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-      "EntityMinecartMixin"
+      "EntityMinecartMixin",
+      "BlockRailMixin"
     ],
     "client": [
     ],

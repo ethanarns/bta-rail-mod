@@ -33,7 +33,7 @@ public abstract class EntityMinecartMixin extends Entity {
 	private void chestMinecartPickupItem(CallbackInfo ci) {
 		// Ensure it's a chest minecart (and handle server side)
 		if (this.minecartType == 1 && !this.world.isClientSide) {
-			List<Entity> nearby = this.world.getEntitiesWithinAABBExcludingEntity(this,this.bb.expand(0.8,0.5,0.8));
+			List<Entity> nearby = this.world.getEntitiesWithinAABBExcludingEntity(this,this.bb.expand(0.1,0.2,0.1));
 			if (nearby != null && !nearby.isEmpty()) {
 				RailMod.LOGGER.debug("Nearby ChestCart entity count: " + nearby.size());
                 for (int j = 0; j < nearby.size(); j++) {
