@@ -1,14 +1,18 @@
 package zolarch.railmod.mixins;
 
+import net.minecraft.core.block.BlockRail;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.vehicle.EntityMinecart;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import zolarch.railmod.RailMod;
 
@@ -27,6 +31,21 @@ public abstract class EntityMinecartMixin extends Entity {
 
 	public EntityMinecartMixin(World world) {
 		super(world);
+	}
+
+	@ModifyConstant(method = "onUpdate2", constant = @Constant(doubleValue = 0.4))
+	private double speedMod(double input) {
+		int i = MathHelper.floor_double(this.x);
+		int j = MathHelper.floor_double(this.y);
+		int k = MathHelper.floor_double(this.z);
+		if (BlockRail.isRailBlockAt(this.world, i, j - 1, k)) {
+			--j;
+		}
+		int l = this.world.getBlockId(i, j, k);
+		if (l == RailMod.FAST_BLOCK_ID) {
+			return 3.6;
+		}
+		return 0.4;
 	}
 
 	@Inject(method = "tick",at = @At("TAIL"))
