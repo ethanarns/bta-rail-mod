@@ -42,14 +42,14 @@ public class RailMod implements ModInitializer, GameStartEntrypoint, RecipeEntry
 
 	@Override
 	public void onRecipesReady() {
-		// Increase the output of normal rails
+		// Increase the output of normal rail recipe
 		RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rail");
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("I I","ISI","I I")
 			.addInput('I', Item.ingotIron)
 			.addInput('S', Item.stick)
 			.create("rail", new ItemStack(Block.rail,32));
-		// Increase the output of normal powered rail recipe
+		// Increase the output of powered rail recipe
 		RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("powered_rail");
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("I I","ISI","IRI")
@@ -57,19 +57,19 @@ public class RailMod implements ModInitializer, GameStartEntrypoint, RecipeEntry
 			.addInput('S', Item.stick)
 			.addInput('R', Item.dustRedstone)
 			.create("powered_rail", new ItemStack(Block.railPowered,16));
-		// Make a more efficient recipe for powered rails
+		// Make a more efficient recipe for powered rails (normal rails with redstone dust in the spaces)
 		RecipeBuilder.Shaped(MOD_ID)
 			.setShape("IRI","ISI","IRI")
 			.addInput('I', Item.ingotIron)
 			.addInput('S', Item.stick)
 			.addInput('R', Item.dustRedstone)
 			.create("powered_rail_compact", new ItemStack(Block.railPowered,6));
-		// Make fast rails
+		// Make fast rails (normal rails with glass in the spaces)
 		RecipeBuilder.Shaped(MOD_ID)
-			.setShape("IRI","ISI","IRI")
+			.setShape("IGI","ISI","IGI")
 			.addInput('I', Item.ingotIron)
 			.addInput('S', Item.stick)
-			.addInput('R', Block.glass)
+			.addInput('G', Block.glass)
 			.create("rail_fast", new ItemStack(fastRailBlock,32));
 	}
 }
