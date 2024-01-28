@@ -39,6 +39,9 @@ public abstract class EntityMinecartMixin extends Entity {
 	@Shadow
 	private ItemStack[] cargoItems;
 
+	@Shadow
+	public abstract Entity ejectRider();
+
 	public EntityMinecartMixin(World world) {
 		super(world);
 	}
@@ -101,16 +104,18 @@ public abstract class EntityMinecartMixin extends Entity {
 			this.fastCountDown--;
 		}
 		if (this.minecartType == 0 && this.yd < 0.01 && this.fastCountDown > 0) {
-			RailMod.LOGGER.warn("On fast block " + xv + ", " + zv + " (lasts: " + this.lastAbsVelX + ", " + lastAbsVelZ);
+			RailMod.LOGGER.debug("On fast block " + xv + ", " + zv + " (lasts: " + this.lastAbsVelX + ", " + lastAbsVelZ);
 			if (this.lastAbsVelX < 0.001 && this.lastAbsVelZ < 0.001) {
 				// Just started, do nothing
 				RailMod.LOGGER.debug("Just started");
 			} else {
 				if (xv > 0.001 && this.lastAbsVelX < 0.001) {
-					RailMod.LOGGER.warn("Too fast a turn X!");
+					RailMod.LOGGER.debug("Too fast a turn X!");
+					this.ejectRider();
 				}
 				if (zv > 0.001 && this.lastAbsVelZ < 0.001) {
-					RailMod.LOGGER.warn("Too fast a turn Z!");
+					RailMod.LOGGER.debug("Too fast a turn Z!");
+					this.ejectRider();
 				}
 			}
 		}
