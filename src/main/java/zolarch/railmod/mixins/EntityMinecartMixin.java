@@ -4,6 +4,7 @@ import net.minecraft.core.block.BlockRail;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.vehicle.EntityMinecart;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -111,11 +112,21 @@ public abstract class EntityMinecartMixin extends Entity {
 			} else {
 				if (xv > 0.001 && this.lastAbsVelX < 0.001) {
 					RailMod.LOGGER.debug("Too fast a turn X!");
-					this.ejectRider();
+					if (this.passenger != null) {
+						this.passenger.animateHurt();
+						this.ejectRider();
+					}
+					this.remove();
+					this.spawnAtLocation(Item.minecart.id, 1, 0.0F);
 				}
 				if (zv > 0.001 && this.lastAbsVelZ < 0.001) {
 					RailMod.LOGGER.debug("Too fast a turn Z!");
-					this.ejectRider();
+					if (this.passenger != null) {
+						this.passenger.animateHurt();
+						this.ejectRider();
+					}
+					this.remove();
+					this.spawnAtLocation(Item.minecart.id, 1, 0.0F);
 				}
 			}
 		}
