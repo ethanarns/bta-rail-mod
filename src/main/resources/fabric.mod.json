@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "railmod",
+  "id": "railty",
   "version": "${version}",
 
   "name": "Railty",
-  "description": "For those who enjoy Minecart rails!",
+  "description": "Light touch server-only rail upgrades",
   "authors": [
     "Zolarch"
   ],
@@ -19,20 +19,20 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-			"zolarch.railmod.RailMod"
+			"zolarch.railty.Railty"
     ],
 		"beforeGameStart": [
-			"zolarch.railmod.RailMod"
+			"zolarch.railty.Railty"
 		],
 		"afterGameStart": [
-			"zolarch.railmod.RailMod"
+			"zolarch.railty.Railty"
 		],
 		"recipesReady": [
-			"zolarch.railmod.RailMod"
+			"zolarch.railty.Railty"
 		]
 	},
   "mixins": [
-		"railmod.mixins.json"
+		"railty.mixins.json"
   ],
 
   "depends": {
