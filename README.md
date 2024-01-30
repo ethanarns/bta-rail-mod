@@ -10,5 +10,4 @@ A very simple server side rail upgrade for rail addicts. My first BTA mod!
 - Rails and Powered Rail default recipes produce twice the output
 - An easier Powered Rail recipe that doesn't need gold added
 
-<img src="PoweredRailCompact.png" width="300px" alt="Efficient recipe"/>
-
+![](PoweredRailCompact.png)
