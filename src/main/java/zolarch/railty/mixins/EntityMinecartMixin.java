@@ -30,6 +30,7 @@ public abstract class EntityMinecartMixin extends Entity {
 	@Inject(method = "tick",at = @At("TAIL"))
 	private void chestMinecartPickupItem(CallbackInfo ci) {
 		// Ensure it's a chest minecart (and handle server side)
+		boolean shouldPlayPop = false;
 		if (this.minecartType == 1 && !this.world.isClientSide) {
 			List<Entity> nearby = this.world.getEntitiesWithinAABBExcludingEntity(this,this.bb.expand(0.1,0.2,0.1));
 			if (nearby != null && !nearby.isEmpty()) {
@@ -44,8 +45,7 @@ public abstract class EntityMinecartMixin extends Entity {
 									// It *can* be incremented, do so
 									this.cargoItems[i].stackSize++;
 									item.remove();
-									this.world.playSoundAtEntity(this, "random.pop", 0.2F,
-										((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+									shouldPlayPop = true;
 									break;
 								}
 								// Otherwise, go to the next slot in line, this one is full
@@ -53,14 +53,17 @@ public abstract class EntityMinecartMixin extends Entity {
 								// Found an empty slot, and there was not a duplicate earlier
 								this.cargoItems[i] = item.item.copy();
 								item.remove();
-								this.world.playSoundAtEntity(this, "random.pop", 0.2F,
-									((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+								shouldPlayPop = true;
                                 break;
                             }
                         }
 					}
                 }
 			}
+		}
+		if (shouldPlayPop) {
+			this.world.playSoundAtEntity(this, "random.pop", 0.2F,
+				((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 		}
 	}
 }
