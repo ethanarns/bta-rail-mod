@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.RecipeBuilder;
+import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 import zolarch.railty.block.JumpRail;
@@ -33,6 +34,9 @@ public class Railty implements ModInitializer, GameStartEntrypoint, RecipeEntryp
 			.setTextures("jumprail.png")
 			.setBlockModel(new BlockModelRenderBlocks(9))
 			.build(new JumpRail(JUMP_RAIL_NAME,JUMP_RAIL_ID,false));
+		// Make sure it loads
+		TextureHelper.getOrCreateBlockTextureIndex(Railty.MOD_ID,"jumprail.png");
+		TextureHelper.getOrCreateBlockTextureIndex(Railty.MOD_ID,"jumprail_powered.png");
 	}
 
 	@Override
