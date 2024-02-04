@@ -1,9 +1,12 @@
 package zolarch.railty.mixins;
 
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockRail;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.vehicle.EntityMinecart;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,7 +26,7 @@ public abstract class EntityMinecartMixin extends Entity {
 	@Shadow
 	private ItemStack[] cargoItems;
 
-	public EntityMinecartMixin(World world) {
+    public EntityMinecartMixin(World world) {
 		super(world);
 	}
 
@@ -60,6 +63,23 @@ public abstract class EntityMinecartMixin extends Entity {
 					}
                 }
 			}
+		}
+
+		int i = MathHelper.floor_double(this.x);
+		int j = MathHelper.floor_double(this.y);
+		int k = MathHelper.floor_double(this.z);
+		if (BlockRail.isRailBlockAt(this.world, i, j - 1, k)) {
+			--j;
+		}
+		//int l = this.world.getBlockId(i, j, k);
+		Block b = this.world.getBlock(i, j, k);
+		if (b != null && b.id == Railty.JUMP_RAIL_ID) {
+			Railty.LOGGER.error("JUMP RAIL LOCATED");
+			this.move(0.0, 1.0,0.0);
+			this.onGround = false;
+            this.yd = 0.6; // Jump force
+			this.xd *= 1.5;
+			this.zd *= 1.5;
 		}
 	}
 }

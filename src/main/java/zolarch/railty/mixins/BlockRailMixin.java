@@ -26,8 +26,8 @@ public abstract class BlockRailMixin extends Block {
 
 	@Inject(method = "isRailBlock",  at = @At("HEAD"), cancellable = true)
 	private static void isRailBlockFix(int i, CallbackInfoReturnable<Boolean> cir) {
-		if (i == Railty.JUMP_RAIL_ID) {
-			cir.setReturnValue(true);
-		}
+//		if (i == Railty.JUMP_RAIL_ID) {
+//			cir.setReturnValue(true);
+//		}
 	}
 }
