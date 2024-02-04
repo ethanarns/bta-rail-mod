@@ -73,9 +73,9 @@ public abstract class EntityMinecartMixin extends Entity {
 		}
 		//int l = this.world.getBlockId(i, j, k);
 		Block b = this.world.getBlock(i, j, k);
-		if (b != null && b.id == Railty.JUMP_RAIL_ID) {
-			Railty.LOGGER.error("JUMP RAIL LOCATED");
-			this.move(0.0, 1.0,0.0);
+		if (b != null && b.id == Railty.JUMP_RAIL_ID && world.isBlockIndirectlyGettingPowered(i,j,k)) {
+			Railty.LOGGER.debug("Jumping...");
+			this.move(0.0, 1.5,0.0);
 			this.onGround = false;
             this.yd = 0.6; // Jump force
 			this.xd *= 1.5;
