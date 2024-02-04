@@ -17,7 +17,7 @@ public class Railty implements ModInitializer, GameStartEntrypoint, RecipeEntryp
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Railty Lite initialized.");
+        LOGGER.info("Railty initialized.");
     }
 
 	@Override

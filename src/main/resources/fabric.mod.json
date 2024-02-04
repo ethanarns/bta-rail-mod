@@ -3,8 +3,8 @@
   "id": "railty",
   "version": "${version}",
 
-  "name": "Railty Lite",
-  "description": "Light touch server-only rail upgrades",
+  "name": "Railty",
+  "description": "Rail upgrades for rail addicts",
   "authors": [
     "Zolarch"
   ],
