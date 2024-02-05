@@ -1,2 +1,4 @@
 tile.railty.jump_rail.name=Jump Rail
 tile.railty.jump_rail.desc=Makes the minecart jump
+tile.railty.basic_rail.name=Basic Rail
+tile.railty.basic_rail.desc=A basic rail

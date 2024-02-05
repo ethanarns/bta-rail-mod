@@ -12,12 +12,17 @@ import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.RecipeEntrypoint;
+import zolarch.railty.block.BlockRailtyBase;
 import zolarch.railty.block.JumpRail;
 
 
 public class Railty implements ModInitializer, GameStartEntrypoint, RecipeEntrypoint {
     public static final String MOD_ID = "railty";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+	public static Block basicRailBlock;
+	public static final String BASIC_RAIL_NAME = "basic_rail";
+	public static final int BASIC_RAIL_ID = 6422;
 
 	public static Block jumpRailBlock;
 	public static final String JUMP_RAIL_NAME = "jump_rail";
@@ -30,6 +35,10 @@ public class Railty implements ModInitializer, GameStartEntrypoint, RecipeEntryp
 
 	@Override
 	public void beforeGameStart() {
+		basicRailBlock = new BlockBuilder(MOD_ID)
+			.setTextures("basicrail.png")
+			.setBlockModel(new BlockModelRenderBlocks(9))
+			.build(new BlockRailtyBase(BASIC_RAIL_NAME,BASIC_RAIL_ID,false));
 		jumpRailBlock = new BlockBuilder(MOD_ID)
 			.setTextures("jumprail.png")
 			.setBlockModel(new BlockModelRenderBlocks(9))
@@ -37,6 +46,8 @@ public class Railty implements ModInitializer, GameStartEntrypoint, RecipeEntryp
 		// Make sure it loads
 		TextureHelper.getOrCreateBlockTextureIndex(Railty.MOD_ID,"jumprail.png");
 		TextureHelper.getOrCreateBlockTextureIndex(Railty.MOD_ID,"jumprail_powered.png");
+		TextureHelper.getOrCreateBlockTextureIndex(Railty.MOD_ID,"basicrail.png");
+		TextureHelper.getOrCreateBlockTextureIndex(Railty.MOD_ID,"basicrail_turn.png");
 	}
 
 	@Override
@@ -52,7 +63,7 @@ public class Railty implements ModInitializer, GameStartEntrypoint, RecipeEntryp
 			.setShape("I I","ISI","I I")
 			.addInput('I', Item.ingotIron)
 			.addInput('S', Item.stick)
-			.create("rail", new ItemStack(Block.rail,32));
+			.create("rail", new ItemStack(basicRailBlock,32));
 		// Increase the output of powered rail recipe
 		RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("powered_rail");
 		RecipeBuilder.Shaped(MOD_ID)
